@@ -95,6 +95,22 @@ for k, v in RESOURCE_TOTALS.items():
     check(resource_sum[k] == v,
           "total %s = %d (harap %d)" % (k, resource_sum[k], v))
 
+# --- country history: 200 tech dari Al-Muhit ---
+hist = os.path.join(MOD, "history", "countries", "ITA - Italy.txt")
+check(os.path.isfile(hist), "history country ITA hilang")
+if os.path.isfile(hist):
+    t = open(hist, encoding="utf-8-sig", errors="replace").read()
+    check("capital = 2" in t, "capital Italia bukan 2")
+    m = re.search(r"set_technology\s*=\s*\{(.*?)\n\}", t, re.S)
+    check(m is not None, "blok set_technology hilang")
+    if m:
+        techs = re.findall(r"(?m)^\t([a-z0-9_]+) = (\d+)[ \t]*$",
+                           m.group(1))
+        check(len(techs) == 200,
+              "jumlah tech = %d (harap 200)" % len(techs))
+        check(dict(techs).get("mechanised_infantry2") == "2",
+              "mechanised_infantry2 harus level 2 seperti save Al-Muhit")
+
 # --- tidak ada override peta ---
 mapdir = os.path.join(MOD, "map")
 check(not os.path.isdir(mapdir) or not os.listdir(mapdir),
@@ -119,4 +135,5 @@ if errors:
         print(" -", e)
     sys.exit(1)
 print("VALIDASI OK: 29 state ITA (manpower x2, resource sesuai target), "
-      "3 megalopolis (Roma/Milano/Napoli), tanpa override map/.")
+      "3 megalopolis (Roma/Milano/Napoli), 200 tech Al-Muhit, "
+      "tanpa override map/.")

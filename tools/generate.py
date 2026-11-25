@@ -6,7 +6,8 @@ Isi:
   - Resource: steel/aluminium x10 dari vanilla; coal/chromium/tungsten
     serta oil/rubber diset ke target total tertentu.
   - 3 kota utama jadi megalopolis: Roma, Milano, Napoli.
-  - History negara, OOB, fokus, bendera, tech Italia tetap vanilla.
+  - 200 tech dari mod Al-Muhit (sumber: save 1941.12.1) dipakai Italia.
+  - History negara, OOB, fokus, bendera tetap vanilla.
   - Tanpa override map/ supaya tidak ada error 'Failed to load the map'.
 
 Usage:  python tools/generate.py
@@ -16,6 +17,7 @@ import re
 
 GAME = r"D:\SteamLibrary\steamapps\common\Hearts of Iron IV"
 MOD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SOURCE_MOD = os.path.join(os.path.dirname(MOD), "Al-Muhit")
 
 MANPOWER_MULTIPLIER = 2
 RESOURCE_MULTIPLIER = 10
@@ -93,6 +95,39 @@ def cleanup():
         for fn in os.listdir(state_dir):
             if fn.endswith(".txt"):
                 os.remove(os.path.join(state_dir, fn))
+    hist = os.path.join(MOD, "history", "countries", "ITA - Italy.txt")
+    if os.path.isfile(hist):
+        os.remove(hist)
+
+
+def read_tech_block():
+    """Salin blok set_technology dari mod Al-Muhit (sumber 200 tech)."""
+    path = os.path.join(SOURCE_MOD, "history", "countries",
+                        "EGY - Egypt.txt")
+    if not os.path.isfile(path):
+        raise RuntimeError("Al-Muhit tidak ditemukan: %s" % path)
+    with open(path, encoding="utf-8-sig", errors="replace") as f:
+        txt = f.read()
+    m = re.search(r"set_technology\s*=\s*\{.*?\n\}", txt, re.S)
+    if m is None:
+        raise RuntimeError("blok set_technology tidak ada di %s" % path)
+    return m.group(0)
+
+
+def write_country_history():
+    src = os.path.join(GAME, "history", "countries", "ITA - Italy.txt")
+    with open(src, encoding="utf-8-sig", errors="replace") as f:
+        txt = f.read()
+    tech = read_tech_block()
+    marker = r"(capital\s*=\s*\d+[^\n]*\n)"
+    txt, n = re.subn(marker,
+                     lambda m: m.group(1) + "\n" + tech + "\n",
+                     txt, count=1)
+    if n == 0:
+        raise RuntimeError("baris capital tidak ditemukan di history ITA")
+    txt = ("# Al-Muhit Italy: 200 tech dari mod Al-Muhit "
+           "(save 1941.12.1)\n" + txt)
+    w("history/countries/ITA - Italy.txt", txt)
 
 
 def multiply_manpower(txt, fn):
@@ -193,14 +228,16 @@ Tidak ada override `map/`.
 
 ## Isi mod
 - Semua 29 state yang di-owner ITA pada 1936 (termasuk koloni):
-  manpower **x2** (89.899.336 total) dan resource **x10**.
+  manpower **x2** (89.899.336 total). Steel & aluminium **x10**;
+  resource lain mengikuti target di bawah.
 - Resource nasional Italia jadi: steel 620, aluminium 600, coal 120,
   chromium 130, tungsten 50, oil 100, rubber 100.
 - Oil 100 ditempatkan di Sicily (`115-Sicily.txt`), rubber 100 di
   Jubaland (`844-jubaland.txt`); sisanya mengikuti target di atas.
 - 3 kota utama jadi **megalopolis**: Roma (`2-Italy`), Milano
   (`159-Lombardy`), Napoli (`117-Napoli`).
-- History negara, OOB, pemimpin, tech, fokus, warna, dan bendera Italia
+- **200 tech** dari mod Al-Muhit (save 1941.12.1) aktif sejak 1936.
+- History negara, OOB, pemimpin, fokus, warna, dan bendera Italia
   tetap vanilla.
 
 ## Cara pakai
@@ -214,6 +251,7 @@ Tidak ada override `map/`.
 def main():
     cleanup()
     n = write_states()
+    write_country_history()
     write_descriptor()
     write_readme()
     mp = 0
@@ -237,6 +275,7 @@ def main():
     print("RESOURCE TARGET: %s" % ", ".join("%s %d" % (k, v)
                                             for k, v in res.items()))
     print("MEGALOPOLIS: %s" % ", ".join(MEGA_STATES))
+    print("TECH       : 200 tech disalin dari mod Al-Muhit")
     print("MOD:", MOD)
 
 
