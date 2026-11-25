@@ -1,4 +1,4 @@
-# Al-Muhit Italy: manpower x2, resource x10, megalopolis
+# Al-Muhit Italy: manpower x2, resource sesuai target, megalopolis
 state = {
 	id = 2
 	name = "STATE_2" # Latium

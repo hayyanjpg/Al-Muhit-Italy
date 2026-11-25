@@ -1,4 +1,4 @@
-# Al-Muhit Italy: manpower x2, resource x10
+# Al-Muhit Italy: manpower x2, resource sesuai target
 
 state = {
 	id = 158
@@ -7,11 +7,11 @@ state = {
 	
 	state_category = metropolis
 	resources = {
-		steel = 240 # was: 40
-		aluminium = 160 # was: 28
-		chromium = 20 # was: 4
-		tungsten = 10 # was: 2
-		coal = 10 # initial distribution
+		steel = 240
+		tungsten = 50
+		chromium = 130
+		coal = 30
+		aluminium = 160
 	}
 
 	history = {

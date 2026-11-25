@@ -1,11 +1,11 @@
-# Al-Muhit Italy: manpower x2, resource x10
+# Al-Muhit Italy: manpower x2, resource sesuai target
 state = {
 	id = 114
 	name = "STATE_114"
 	manpower = 1983842
 	
 	resources = {
-		coal = 10 # initial distribution
+		coal = 30
 	}
 
 	state_category = town

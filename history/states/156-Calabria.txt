@@ -1,4 +1,4 @@
-# Al-Muhit Italy: manpower x2, resource x10
+# Al-Muhit Italy: manpower x2, resource sesuai target
 
 state = {
 	id = 156

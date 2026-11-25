@@ -1,10 +1,13 @@
-# Al-Muhit Italy: manpower x2, resource x10
+# Al-Muhit Italy: manpower x2, resource sesuai target
 state = {
 	id = 844
 	name = "STATE_844"
 	manpower = 2057790
 	
 	state_category = pastoral
+	resources = {
+		rubber = 100
+	}
 	
 	history = {
 		owner = ITA

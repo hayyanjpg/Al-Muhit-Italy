@@ -1,4 +1,4 @@
-# Al-Muhit Italy: manpower x2, resource x10
+# Al-Muhit Italy: manpower x2, resource sesuai target
 state = {
 	id = 736
 	name = "STATE_736" #Name was Istria before the Pola (Istria) split and merge with Fiume

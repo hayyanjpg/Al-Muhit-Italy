@@ -6,8 +6,10 @@ Tidak ada override `map/`.
 ## Isi mod
 - Semua 29 state yang di-owner ITA pada 1936 (termasuk koloni):
   manpower **x2** (89.899.336 total) dan resource **x10**.
-- Resource nasional Italia jadi: steel 620, aluminium 600, coal 40,
-  chromium 20, tungsten 10 (rubber & oil tetap 0 sesuai vanilla).
+- Resource nasional Italia jadi: steel 620, aluminium 600, coal 120,
+  chromium 130, tungsten 50, oil 100, rubber 100.
+- Oil 100 ditempatkan di Sicily (`115-Sicily.txt`), rubber 100 di
+  Jubaland (`844-jubaland.txt`); sisanya mengikuti target di atas.
 - 3 kota utama jadi **megalopolis**: Roma (`2-Italy`), Milano
   (`159-Lombardy`), Napoli (`117-Napoli`).
 - History negara, OOB, pemimpin, tech, fokus, warna, dan bendera Italia

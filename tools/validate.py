@@ -8,20 +8,20 @@ MOD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PARENT = os.path.dirname(MOD)
 
 RESOURCE_TOTALS = {
-    "steel": 620, "tungsten": 10, "rubber": 0, "chromium": 20,
-    "coal": 40, "aluminium": 600, "oil": 0,
+    "steel": 620, "tungsten": 50, "rubber": 100, "chromium": 130,
+    "coal": 120, "aluminium": 600, "oil": 100,
 }
 
-# fn: (manpower x2, resource x10)
+# fn: (manpower x2, resource final sesuai target)
 STATE_EXPECT = {
     "2-Italy.txt": (5563942, {}),
-    "114-Sardinia.txt": (1983842, {"coal": 10}),
-    "115-Sicily.txt": (7673142, {}),
+    "114-Sardinia.txt": (1983842, {"coal": 30}),
+    "115-Sicily.txt": (7673142, {"oil": 100}),
     "117-Napoli.txt": (8480000, {"steel": 150, "aluminium": 100}),
     "156-Calabria.txt": (3544000, {}),
     "157-Abruzzo.txt": (5958670, {}),
-    "158-Piedmont.txt": (9530952, {"steel": 240, "tungsten": 10,
-                                   "chromium": 20, "coal": 10,
+    "158-Piedmont.txt": (9530952, {"steel": 240, "tungsten": 50,
+                                   "chromium": 130, "coal": 30,
                                    "aluminium": 160}),
     "159-Lombardy.txt": (11195408, {}),
     "160-Veneto.txt": (7926302, {"steel": 200, "aluminium": 110}),
@@ -41,10 +41,10 @@ STATE_EXPECT = {
     "662-Sirte.txt": (26426, {}),
     "663-Cyrenaica.txt": (17616, {}),
     "736-Litorale.txt": (2076318, {}),
-    "844-jubaland.txt": (2057790, {}),
+    "844-jubaland.txt": (2057790, {"rubber": 100}),
     "849-Puglia.txt": (5284000, {}),
     "850-Trentino.txt": (741478, {}),
-    "852-Istria.txt": (251700, {"coal": 20}),
+    "852-Istria.txt": (251700, {"coal": 60}),
 }
 
 MEGA_STATES = ("2-Italy.txt", "159-Lombardy.txt", "117-Napoli.txt")
@@ -118,5 +118,5 @@ if errors:
     for e in errors:
         print(" -", e)
     sys.exit(1)
-print("VALIDASI OK: 29 state ITA (manpower x2, resource x10), "
+print("VALIDASI OK: 29 state ITA (manpower x2, resource sesuai target), "
       "3 megalopolis (Roma/Milano/Napoli), tanpa override map/.")

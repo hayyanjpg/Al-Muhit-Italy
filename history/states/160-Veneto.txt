@@ -1,10 +1,10 @@
-# Al-Muhit Italy: manpower x2, resource x10
+# Al-Muhit Italy: manpower x2, resource sesuai target
 state = {
 	id = 160
 	name = "STATE_160"
 	resources = {
-		steel=200 # was: 32.000
-		aluminium=110 # was: 18.000
+		steel = 200
+		aluminium = 110
 	}
 	
 	state_category = large_city
